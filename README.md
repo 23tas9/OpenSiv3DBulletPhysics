@@ -1,0 +1,2 @@
+# OpenSiv3DBulletPhysics
+OpenSiv3Dで物理エンジンBulletを使うためのC++ライブラリ
