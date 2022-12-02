@@ -16,17 +16,38 @@ public:
 		m_impl{ std::make_shared<BulletBodyDetail>(world, center, sivBox, mass) } {
 
 	}
+	BulletBody(const std::shared_ptr<DynamicsWorldDetail>& world, const Vec3& center, const Cylinder& sivCylinder, double mass) :
+		m_impl{ std::make_shared<BulletBodyDetail>(world, center, sivCylinder, mass) } {
 
-	void draw() const {
+	}
+	BulletBody(const std::shared_ptr<DynamicsWorldDetail>& world, const Vec3& center, const Cone& sivCone, double mass) :
+		m_impl{ std::make_shared<BulletBodyDetail>(world, center, sivCone, mass) } {
+
+	}
+
+	void draw(Color color = Palette::White) const {
 		btCollisionShape* collisionShape = m_impl->body->getCollisionShape();
 		int32 shapeType = collisionShape->getShapeType();
+
 		if		(shapeType == SPHERE_SHAPE_PROXYTYPE) {
 			btSphereShape* shape = static_cast<btSphereShape*>(collisionShape);
-			Sphere{ getCenter(), shape->getRadius() }.draw();
+			Sphere{ getCenter(), shape->getRadius() }.draw(color);
 		}
+
 		else if (shapeType == BOX_SHAPE_PROXYTYPE) {
 			btBoxShape* shape = static_cast<btBoxShape*>(collisionShape);
-			Box{ getCenter(), fromBTVec3(shape->getHalfExtentsWithMargin() * 2) }.draw();
+			Box{ getCenter(), fromBTVec3(shape->getHalfExtentsWithMargin()) * 2 }.draw(color);
+		}
+
+		else if (shapeType == CYLINDER_SHAPE_PROXYTYPE) {
+			btCylinderShape* shape = static_cast<btCylinderShape*>(collisionShape);
+			btVector3 halfExtents = shape->getHalfExtentsWithMargin();
+			Cylinder{ getCenter(), halfExtents.x(), halfExtents.y() * 2 }.draw(color);
+		}
+
+		else if (shapeType == CONE_SHAPE_PROXYTYPE) {
+			btConeShape* shape = static_cast<btConeShape*>(collisionShape);
+			Cone{ getCenter() - Vec3{ 0, shape->getHeight() / 2, 0 }, shape->getRadius(), shape->getHeight() }.draw(color);
 		}
 	}
 

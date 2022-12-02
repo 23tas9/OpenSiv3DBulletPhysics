@@ -41,4 +41,20 @@ public:
 
 		return body;
 	}
+
+	BulletBody createCylinder(const Vec3& center, double r, double h, double mass) {
+		BulletBody body{ m_impl, center, Cylinder{ r, h }, mass };
+
+		add(body);
+
+		return body;
+	}
+
+	BulletBody createCone(const Vec3& center, double r, double h, double mass) {
+		BulletBody body{ m_impl, center, Cone{ r, h }, mass };
+
+		add(body);
+
+		return body;
+	}
 };
