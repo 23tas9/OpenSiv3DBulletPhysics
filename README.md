@@ -1,6 +1,12 @@
 # OpenSiv3DBulletPhysics
 OpenSiv3Dで物理エンジンBulletを使うためのC++ライブラリ
 
+## 対応形状
+Box
+Sphere
+Cone
+Cylinder
+
 ## サンプル
 ```cpp
 #include <Siv3D.hpp> // OpenSiv3D v0.6.6
