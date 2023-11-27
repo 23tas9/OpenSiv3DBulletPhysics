@@ -1,6 +1,9 @@
 # OpenSiv3DBulletPhysics
 OpenSiv3Dで物理エンジンBulletを使うためのC++ライブラリ
 
+## 記事
+[Siv3D Advent Calendar 2022 7日目](https://qiita.com/tas9n/items/522312d04013f3512f33)
+
 ## 対応形状
 Box
 Sphere
